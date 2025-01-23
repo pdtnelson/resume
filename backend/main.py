@@ -1,5 +1,9 @@
-from modules import profile
 from fastapi import FastAPI
+from dotenv import load_dotenv
+load_dotenv()
+
+from modules import profile
+
 
 app = FastAPI()
 
