@@ -1,3 +1,7 @@
 .DS_Store
 backend/.idea/
 backend/__pycache__/
+backend/.env
+backend/data/
+
+__pycache__/
