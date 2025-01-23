@@ -1,4 +1,5 @@
 import './assets/main.css'
+import httpClient from '@/plugins/http-client-plugin'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
@@ -10,5 +11,6 @@ const app = createApp(App)
 
 app.use(createPinia())
 app.use(router)
+app.use(httpClient)
 
 app.mount('#app')
