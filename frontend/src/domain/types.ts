@@ -18,6 +18,15 @@ export type Resume = {
 
 export type Profile = {
   id: string | null
+  name: string
+  job_title: string
+  location: string
+  salary: number
   profile_img_url: string
   text: string
+}
+
+export type ListResponse<T> = {
+  data: T[]
+  total: number
 }

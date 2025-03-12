@@ -21,7 +21,7 @@ def get_resume(_id: str) -> Resume:
 @router.post("/resumes")
 def create_resume(resume: Resume) -> Resume:
     try:
-        result = db['profiles'].insert_one(resume.model_dump())
+        result = db['resumes'].insert_one(resume.model_dump())
         return Resume.from_dict(result.inserted_id, resume.model_dump())
     except BaseException as ex:
         logging.exception(f"Error saving profile: {ex}")

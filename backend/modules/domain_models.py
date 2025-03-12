@@ -3,8 +3,18 @@ from bson import ObjectId
 from pydantic import BaseModel, Field
 
 
+class PaginatedResponse[T](BaseModel):
+    data: list[T]
+    total: int
+
+
 class Profile(BaseModel):
-    id: str | None
+    id: str | None = None
+    resume_id: str | None = None
+    name: str
+    job_title: str
+    location: str
+    salary: int
     profile_img_url: str
     text: str
 
@@ -12,6 +22,11 @@ class Profile(BaseModel):
     def from_dict(id: str | ObjectId | None, data: dict):
         return Profile(
             id=str(id) if id else None,
+            resume_id=str(data["resume_id"]) if data["resume_id"] else None,
+            name=data["name"],
+            job_title=data["job_title"],
+            location=data["location"],
+            salary=data["salary"],
             profile_img_url=data["profile_img_url"],
             text=data["text"]
         )
