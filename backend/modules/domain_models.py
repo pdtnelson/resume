@@ -10,7 +10,6 @@ class PaginatedResponse[T](BaseModel):
 
 class Profile(BaseModel):
     id: str | None = None
-    resume_id: str | None = None
     name: str
     job_title: str
     location: str
@@ -22,7 +21,6 @@ class Profile(BaseModel):
     def from_dict(id: str | ObjectId | None, data: dict):
         return Profile(
             id=str(id) if id else None,
-            resume_id=str(data["resume_id"]) if data["resume_id"] else None,
             name=data["name"],
             job_title=data["job_title"],
             location=data["location"],
@@ -33,16 +31,18 @@ class Profile(BaseModel):
 
 
 class Job(BaseModel):
+    id: str | None = None
     title: str
     start_date: date
-    end_date: date | None
+    end_date: date | None = None
     duties: list[str]
 
     @staticmethod
-    def from_dict(id: str | ObjectId | None, data: dict):
+    def from_dict(id: str | ObjectId, data: dict):
         return Job(
             id=str(id) if id else None,
-            title=data["start_date"],
+            title=data["title"],
+            start_date=data["start_date"],
             end_date=data["end_date"] if data["end_date"] else None,
             duties=data["duties"]
         )
