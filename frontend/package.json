@@ -16,12 +16,17 @@
   "dependencies": {
     "@headlessui/vue": "^1.7.23",
     "@heroicons/vue": "^2.2.0",
+    "@tinymce/tinymce-vue": "^5.1.1",
+    "@vuelidate/core": "^2.0.3",
+    "@vuelidate/validators": "^2.0.4",
+    "@vuepic/vue-datepicker": "^11.0.2",
     "axios": "^1.7.9",
     "axios-retry": "^4.5.0",
     "clsx": "^2.1.1",
     "lodash": "^4.17.21",
     "pinia": "^2.3.1",
     "tailwind-merge": "^2.6.0",
+    "tinymce": "^7.7.2",
     "vue": "^3.5.13",
     "vue-router": "^4.5.0"
   },

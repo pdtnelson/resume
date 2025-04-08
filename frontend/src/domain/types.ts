@@ -1,20 +1,22 @@
 export type Job ={
   title: string
-  start_date: Date
+  start_date: Date | null
   end_date: Date | null
-  duties: string[]
+  description: string
 }
 
 export type Resume = {
-  id: string | null
+  id: string
   full_name: string
   address_line_one: string
   address_line_two: string
   city: string
   state: string
-  zip: number
+  zip: number | null
   jobs: Job[]
 }
+
+export type CreateResumeRequest = Omit<Resume, 'id'>
 
 export type Profile = {
   id: string | null
@@ -26,7 +28,7 @@ export type Profile = {
   text: string
 }
 
-export type ListResponse<T> = {
+export type PagedResponse<T> = {
   data: T[]
   total: number
 }

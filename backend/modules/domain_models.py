@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import datetime
 from bson import ObjectId
 from pydantic import BaseModel, Field
 
@@ -31,28 +31,26 @@ class Profile(BaseModel):
 
 
 class Job(BaseModel):
-    id: str | None = None
     title: str
-    start_date: date
-    end_date: date | None = None
-    duties: list[str]
+    start_date: datetime
+    end_date: datetime | None = None
+    description: str
 
     @staticmethod
-    def from_dict(id: str | ObjectId, data: dict):
+    def from_dict(data: dict):
         return Job(
-            id=str(id) if id else None,
             title=data["title"],
             start_date=data["start_date"],
             end_date=data["end_date"] if data["end_date"] else None,
-            duties=data["duties"]
+            description=data["duties"]
         )
 
 
 class Resume(BaseModel):
-    id: str | None
+    id: str | None = None
     full_name: str
     address_line_one: str
-    address_line_two: str
+    address_line_two: str | None
     city: str
     state: str
     zip: int = Field(..., max=5)
