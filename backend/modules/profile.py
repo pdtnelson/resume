@@ -20,14 +20,20 @@ def get_profiles(limit: int = 10, offset: int = 0) -> PaginatedResponse[Profile]
     try:
         if limit < 1 or limit > 100:
             raise HTTPException(status_code=422, detail="limit out of range")
-        cursor = db["profiles"].find()
+
+        cursor = db["profiles"].find({})
+
         cursor.skip(offset)
-        profiles = [Profile.from_dict(doc["_id"], doc) for doc in cursor.limit(limit)]
+        cursor.limit(limit)
+
+        profiles = [Profile.from_dict(doc["_id"], doc) for doc in cursor]
         total = db["profiles"].count_documents({})
+
         return PaginatedResponse[Profile](data=profiles, total=total)
     except BaseException as ex:
-        logging.exception(f"Failed to fetch profiles")
+        logging.exception(f"Failed to fetch profiles: {ex}")
         raise HTTPException(status_code=500, detail="Failed to fetch profiles")
+
 
 @router.get("/profiles/{_id}")
 def get_profile(_id: str) -> Profile:
@@ -45,3 +51,31 @@ def create_profile(profile: Profile) -> Profile:
     except BaseException as ex:
         logging.exception(f"Error saving profile: {ex}")
         raise HTTPException(status_code=500, detail="Error creating profile")
+
+
+@router.put("/profiles")
+def update_profile(profile: Profile):
+    try:
+        doc = db["profiles"].find_one({"_id": ObjectId(profile.id)})
+        if not doc:
+            raise HTTPException(status_code=404, detail="Profile not found for update")
+
+        db["profiles"].update_one({"_id": ObjectId(profile.id)}, {"$set": profile.model_dump(exclude="id")})
+        updated = db["profiles"].find_one({"_id": ObjectId(profile.id)})
+        return Profile.from_dict(updated["_id"], updated)
+    except BaseException as ex:
+        logging.exception(f"Error updating profile: {ex}")
+        raise HTTPException(status_code=500, detail="Error updating profile")
+
+
+@router.delete("/profiles/_id")
+def delete_profile(_id: str):
+    try:
+        res = db["resumes"].delete_one({"_id": ObjectId(_id)})
+        if res.deleted_count == 0:
+            raise HTTPException(status_code=404, detail="Profile not found")
+    except HTTPException as ex:
+        raise ex
+    except BaseException as ex:
+        logging.exception(f"Error deleting profile: {ex}")
+        raise HTTPException(status_code=500, detail="Error deleting profile")
