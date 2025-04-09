@@ -1,10 +1,19 @@
-from datetime import date
+from datetime import datetime
 from bson import ObjectId
 from pydantic import BaseModel, Field
 
 
+class PaginatedResponse[T](BaseModel):
+    data: list[T]
+    total: int
+
+
 class Profile(BaseModel):
-    id: str | None
+    id: str | None = None
+    name: str
+    job_title: str
+    location: str
+    salary: int
     profile_img_url: str
     text: str
 
@@ -12,6 +21,10 @@ class Profile(BaseModel):
     def from_dict(id: str | ObjectId | None, data: dict):
         return Profile(
             id=str(id) if id else None,
+            name=data["name"],
+            job_title=data["job_title"],
+            location=data["location"],
+            salary=data["salary"],
             profile_img_url=data["profile_img_url"],
             text=data["text"]
         )
@@ -19,25 +32,25 @@ class Profile(BaseModel):
 
 class Job(BaseModel):
     title: str
-    start_date: date
-    end_date: date | None
-    duties: list[str]
+    start_date: datetime
+    end_date: datetime | None = None
+    description: str
 
     @staticmethod
-    def from_dict(id: str | ObjectId | None, data: dict):
+    def from_dict(data: dict):
         return Job(
-            id=str(id) if id else None,
-            title=data["start_date"],
+            title=data["title"],
+            start_date=data["start_date"],
             end_date=data["end_date"] if data["end_date"] else None,
-            duties=data["duties"]
+            description=data["duties"]
         )
 
 
 class Resume(BaseModel):
-    id: str | None
+    id: str | None = None
     full_name: str
     address_line_one: str
-    address_line_two: str
+    address_line_two: str | None
     city: str
     state: str
     zip: int = Field(..., max=5)
