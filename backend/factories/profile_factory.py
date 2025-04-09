@@ -1,4 +1,5 @@
 import random
+import uuid
 
 from faker import Faker
 
@@ -9,6 +10,7 @@ fake = Faker()
 
 def create_profile(name: str | None = None):
     return Profile(
+        tracking_uuid=str(uuid.uuid4()),
         name=name if name else fake.company(),
         job_title=fake.job_male(),
         location=fake.city(),
