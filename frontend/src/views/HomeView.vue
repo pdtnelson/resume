@@ -7,7 +7,7 @@ const http: HttpClient = inject('http')!
 const profile = ref<Profile>()
 async function fetchData() {
   try {
-    const response = await http.client.get<Profile>('/profiles/67909cf0a23641e6b4ff52a3')
+    const response = await http.client.get<Profile>('/profiles/67d10010f5cb7418cf969ae4')
     profile.value = response.data
   } catch (e) {
     console.error(e)

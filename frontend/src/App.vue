@@ -1,11 +1,16 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import { RouterView, useRoute } from 'vue-router'
 import MainNav from "@/components/MainNav.vue";
+import { computed } from 'vue'
+
+const route = useRoute()
+const showNav = computed(() => {
+  return !route.path.includes('/admin')
+})
 </script>
 
 <template>
-  <MainNav />
+  <MainNav v-if="showNav"/>
   <RouterView />
 </template>
 
