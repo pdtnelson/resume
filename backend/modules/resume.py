@@ -54,7 +54,7 @@ def delete_resume(_id: str):
     try:
         res = db["resumes"].delete_one({"_id": ObjectId(_id)})
         if res.deleted_count == 0:
-            raise HTTPException(status_code=404, detail="media not found")
+            raise HTTPException(status_code=404, detail="Resume not found")
     except HTTPException as ex:
         raise ex
     except BaseException as ex:
