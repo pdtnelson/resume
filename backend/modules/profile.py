@@ -2,11 +2,12 @@ import logging
 import uuid
 
 from bson import ObjectId
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
 from pydantic import BaseModel
 from uuid import UUID
 
-from modules.domain_models import Profile, PaginatedResponse
+from modules.auth import JWTBearer
+from modules.domain_models import Profile, PaginatedResponse, UserRole
 from database import db
 
 router = APIRouter()
@@ -53,7 +54,9 @@ def get_profile(_id: str) -> Profile:
     return Profile.from_dict(doc["_id"], doc)
 
 
-@router.post("/profiles")
+@router.post("/profiles", dependencies=[
+    Depends(JWTBearer(required_roles=[UserRole.SITE_ADMIN]))
+])
 def create_profile(request: CreateProfileRequest) -> Profile:
     try:
         profile = Profile(
@@ -73,7 +76,9 @@ def create_profile(request: CreateProfileRequest) -> Profile:
         raise HTTPException(status_code=500, detail="Error creating profile")
 
 
-@router.put("/profiles")
+@router.put("/profiles", dependencies=[
+    Depends(JWTBearer(required_roles=[UserRole.SITE_ADMIN]))
+])
 def update_profile(profile: Profile):
     try:
         doc = db["profiles"].find_one({"_id": ObjectId(profile.id)})
@@ -88,7 +93,9 @@ def update_profile(profile: Profile):
         raise HTTPException(status_code=500, detail="Error updating profile")
 
 
-@router.delete("/profiles/_id")
+@router.delete("/profiles/_id", dependencies=[
+    Depends(JWTBearer(required_roles=[UserRole.SITE_ADMIN]))
+])
 def delete_profile(_id: str):
     try:
         res = db["resumes"].delete_one({"_id": ObjectId(_id)})
