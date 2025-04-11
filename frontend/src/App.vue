@@ -10,8 +10,10 @@ const showNav = computed(() => {
 </script>
 
 <template>
-  <MainNav v-if="showNav"/>
-  <RouterView />
+    <MainNav v-if="showNav"/>
+    <div class="container mx-auto sm:px-6 lg:px-8">
+      <RouterView />
+    </div>
 </template>
 
 <style scoped>

@@ -27,9 +27,9 @@ onBeforeMount(() => {
 </script>
 
 <template>
-  <main class="w-full lg:w-4/5 px-2 lg:px-7 mx-auto">
+  <main>
     <div v-if="profile">
-      <img class="h-fit w-fit float-left mr-7" :src="profile.profile_img_url" alt="Placeholder Cat">
+      <img class="h-fit w-full sm:w-fit sm:float-left sm:mr-7" :src="profile.profile_img_url" alt="Placeholder Cat">
       <p>{{ profile.text }}</p>
     </div>
   </main>
