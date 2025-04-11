@@ -1,8 +1,10 @@
 import logging
+import uuid
 
 from bson import ObjectId
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
+from uuid import UUID
 
 from modules.domain_models import Profile, PaginatedResponse
 from database import db
@@ -11,23 +13,31 @@ router = APIRouter()
 
 
 class CreateProfileRequest(BaseModel):
+    name: str
+    job_title: str
+    location: str
+    salary: int
     profile_img_url: str
     text: str
 
 
 @router.get("/profiles")
-def get_profiles(limit: int = 10, offset: int = 0) -> PaginatedResponse[Profile]:
+def get_profiles(limit: int = 10, offset: int = 0, tracking_uuid: str | None = None) -> PaginatedResponse[Profile]:
     try:
         if limit < 1 or limit > 100:
             raise HTTPException(status_code=422, detail="limit out of range")
+        filter = {}
 
-        cursor = db["profiles"].find({})
+        if tracking_uuid is not None:
+            filter["tracking_uuid"] = {"$eq": tracking_uuid}
+
+        cursor = db["profiles"].find(filter)
 
         cursor.skip(offset)
         cursor.limit(limit)
 
         profiles = [Profile.from_dict(doc["_id"], doc) for doc in cursor]
-        total = db["profiles"].count_documents({})
+        total = db["profiles"].count_documents(filter)
 
         return PaginatedResponse[Profile](data=profiles, total=total)
     except BaseException as ex:
@@ -44,8 +54,18 @@ def get_profile(_id: str) -> Profile:
 
 
 @router.post("/profiles")
-def create_profile(profile: Profile) -> Profile:
+def create_profile(request: CreateProfileRequest) -> Profile:
     try:
+        profile = Profile(
+            id=None,
+            tracking_uuid=str(uuid.uuid4()),
+            name=request.name,
+            job_title=request.job_title,
+            location=request.location,
+            salary=request.salary,
+            profile_img_url=request.profile_img_url,
+            text=request.text
+        )
         result = db['profiles'].insert_one(profile.model_dump())
         return Profile.from_dict(result.inserted_id, profile.model_dump())
     except BaseException as ex:

@@ -1,3 +1,4 @@
+from uuid import UUID
 from datetime import datetime
 from bson import ObjectId
 from pydantic import BaseModel, Field
@@ -10,6 +11,7 @@ class PaginatedResponse[T](BaseModel):
 
 class Profile(BaseModel):
     id: str | None = None
+    tracking_uuid: str
     name: str
     job_title: str
     location: str
@@ -21,6 +23,7 @@ class Profile(BaseModel):
     def from_dict(id: str | ObjectId | None, data: dict):
         return Profile(
             id=str(id) if id else None,
+            tracking_uuid=data["tracking_uuid"],
             name=data["name"],
             job_title=data["job_title"],
             location=data["location"],
