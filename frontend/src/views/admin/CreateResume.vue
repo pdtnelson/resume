@@ -15,6 +15,7 @@ import JobDisplay from '@/components/JobDisplay.vue'
 import { required } from '@vuelidate/validators'
 import useVuelidate from '@vuelidate/core'
 import type HttpClient from '@/http/http-client.ts'
+import PillDisplayCombobox from '@/components/PillDisplayCombobox.vue'
 
 const http: HttpClient = inject('http')!
 
@@ -25,6 +26,7 @@ const form = ref<CreateResumeRequest>({
   city: '',
   state: '',
   zip: null,
+  skills: [],
   jobs: []
 })
 const rules = {
@@ -35,6 +37,7 @@ const rules = {
   zip: { required }
 }
 const v$ = useVuelidate(rules, form)
+const skills = ref([])
 
 const createResume = async () => {
   if (!(await v$.value.$validate())) return
@@ -104,6 +107,12 @@ const addJob = (job: Job) => {
         <div class="flex items-center rounded-md bg-white pl-3 outline outline-1 -outline-offset-1 outline-gray-300 focus-within:outline focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
           <input type="number" name="zip" id="zip" v-model="form.zip" class="block min-w-0 grow py-1.5 pl-1 pr-3 text-base text-gray-900 placeholder:text-gray-400 focus:outline focus:outline-0 sm:text-sm/6" />
         </div>
+      </div>
+    </div>
+
+    <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+      <div class="col-span-4">
+        <PillDisplayCombobox option-label="skills" :options="skills" v-model="form.skills" />
       </div>
     </div>
 
