@@ -13,6 +13,7 @@ export type Resume = {
   city: string
   state: string
   zip: number | null
+  skills: string[]
   jobs: Job[]
 }
 

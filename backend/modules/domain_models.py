@@ -57,6 +57,7 @@ class Resume(BaseModel):
     city: str
     state: str
     zip: int = Field(..., max=5)
+    skills: list[str]
     jobs: list[Job]
 
     @staticmethod
@@ -69,6 +70,7 @@ class Resume(BaseModel):
             city=data["city"],
             state=data["state"],
             zip=data["zip"],
+            skills=data["skills"],
             jobs=data["jobs"]
         )
 
