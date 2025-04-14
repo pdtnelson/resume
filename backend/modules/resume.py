@@ -1,11 +1,11 @@
 import logging
 
 from bson import ObjectId
-from fastapi import APIRouter, HTTPException, status
-
+from fastapi import APIRouter, HTTPException, status, Depends
 
 from database import db
-from modules.domain_models import Resume, Job, PaginatedResponse
+from modules.auth import JWTBearer
+from modules.domain_models import Resume, Job, PaginatedResponse, UserRole
 
 router = APIRouter()
 
@@ -24,7 +24,9 @@ def get_resume(limit: int = 10, offset: int = 0) -> PaginatedResponse[Resume]:
     return PaginatedResponse(data=data, total=total)
 
 
-@router.post("/resumes")
+@router.post("/resumes", dependencies=[
+    Depends(JWTBearer(required_roles=[UserRole.SITE_ADMIN]))
+])
 def create_resume(resume: Resume) -> Resume:
     try:
         result = db['resumes'].insert_one(resume.model_dump(exclude="id"))
@@ -34,7 +36,9 @@ def create_resume(resume: Resume) -> Resume:
         raise HTTPException(status_code=500, detail="Error creating resume")
 
 
-@router.put("/resumes")
+@router.put("/resumes", dependencies=[
+    Depends(JWTBearer(required_roles=[UserRole.SITE_ADMIN]))
+])
 def update_resume(resume: Resume):
     try:
         doc = db["resumes"].find_one({"_id": ObjectId(resume.id)})

@@ -6,6 +6,7 @@ import { useRoute } from 'vue-router'
 
 const http: HttpClient = inject('http')!
 const route = useRoute()
+const default_uuid = import.meta.env.VITE_DEFAULT_PROFILE_UUID
 const profile = ref<Profile>()
 async function fetchData() {
   try {
@@ -19,7 +20,7 @@ async function fetchData() {
 
 const getProfileTrackingId = () => {
   const { utm_id } = route.query
-  return utm_id ? utm_id : 'bb63c1de-161e-40ce-a202-b15bde733a61'
+  return utm_id ? utm_id : default_uuid
 }
 onBeforeMount(() => {
   fetchData()
