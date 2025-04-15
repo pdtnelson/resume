@@ -1,7 +1,11 @@
+import { DateTime } from 'luxon'
+
+
 export type Job ={
   title: string
-  start_date: Date | null
-  end_date: Date | null
+  company: string
+  start_date: DateTime
+  end_date: DateTime | null
   description: string
 }
 

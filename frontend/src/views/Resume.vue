@@ -4,6 +4,7 @@ import type HttpClient from '@/http/http-client.ts'
 import { inject, onMounted, ref } from 'vue'
 import type { PagedResponse, Resume } from '@/domain/types.ts'
 import Card from '@/components/Card.vue'
+import JobDisplay from '@/components/JobDisplay.vue'
 
 const http = inject<HttpClient>('http')!
 const resume = ref<Resume>()
@@ -36,8 +37,8 @@ onMounted(() => {
           </div>
 
           <div class="mb-5">
-            <h2 class="text-xl font-bold sm:truncate sm:text-3xl sm:tracking-tight mb-2">Skills</h2>
-            <div class="grid grid-cols-6 gap-2">
+            <h2 class="text-xl font-bold sm:truncate sm:text-2xl sm:tracking-tight mb-2">Skills</h2>
+            <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-2">
               <div v-for="(skill, index) in resume.skills" :key="index">
                 <p class="text-base">{{ skill }}</p>
               </div>
@@ -45,8 +46,23 @@ onMounted(() => {
           </div>
 
           <div class="mb-5">
-            <h2 class="text-xl font-bold sm:truncate sm:text-3xl sm:tracking-tight mb-2">Experience</h2>
+            <h2 class="text-xl font-bold sm:truncate sm:text-2xl sm:tracking-tight mb-2">Experience</h2>
+            <div v-for="job in resume.jobs" :key="job.title" class="mb-2">
+              <JobDisplay :job="job" />
+            </div>
+          </div>
 
+          <div class="mb-5">
+            <!-- TODO: Education -->
+          </div>
+
+          <div class="mb-5">
+            <!-- TODO: Certifications/Training -->
+          </div>
+
+          <div class="mb-5">
+            <h2 class="text-base font-bold sm:text-xl sm:tracking-tight mb-1">References</h2>
+            <h3 class="text-base/4 tracking-tight">Available Upon Request</h3>
           </div>
         </div>
       </Card>
@@ -54,6 +70,5 @@ onMounted(() => {
   </main>
 </template>
 
-<style scoped>
-
+<style lang="scss">
 </style>
