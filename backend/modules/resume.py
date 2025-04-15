@@ -53,7 +53,9 @@ def update_resume(resume: Resume):
         raise HTTPException(status_code=500, detail="Error updating resume")
 
 
-@router.delete("/resumes/{_id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete("/resumes/{_id}", status_code=status.HTTP_204_NO_CONTENT,  dependencies=[
+    Depends(JWTBearer(required_roles=[UserRole.SITE_ADMIN]))
+])
 def delete_resume(_id: str):
     try:
         res = db["resumes"].delete_one({"_id": ObjectId(_id)})
