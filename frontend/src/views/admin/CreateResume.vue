@@ -8,7 +8,7 @@ import {
   render,
   useTemplateRef
 } from 'vue'
-import type { CreateResumeRequest, Job, Resume } from '@/domain/types.ts'
+import type { Certification, CreateResumeRequest, Education, Job, Resume } from '@/domain/types.ts'
 import JobInput from '@/components/JobInput.vue'
 import { PlusIcon } from '@heroicons/vue/20/solid'
 import JobDisplay from '@/components/JobDisplay.vue'
@@ -16,6 +16,10 @@ import { required } from '@vuelidate/validators'
 import useVuelidate from '@vuelidate/core'
 import type HttpClient from '@/http/http-client.ts'
 import PillDisplayCombobox from '@/components/PillDisplayCombobox.vue'
+import EducationInput from '@/components/EducationInput.vue'
+import EducationDisplay from '@/components/EducationDisplay.vue'
+import CertificationInput from '@/components/CertificationInput.vue'
+import CertificationDisplay from '@/components/CertificationDisplay.vue'
 
 const http: HttpClient = inject('http')!
 
@@ -27,7 +31,9 @@ const form = ref<CreateResumeRequest>({
   state: '',
   zip: null,
   skills: [],
-  jobs: []
+  jobs: [],
+  education: [],
+  certifications: []
 })
 const rules = {
   full_name: { required },
@@ -54,6 +60,17 @@ const addJob = (job: Job) => {
   showJobInput.value = false
 }
 
+const showEducationInput = ref(false)
+const addEducation = (education: Education) => {
+  form.value.education.push(education)
+  showEducationInput.value = false
+}
+
+const showCertificationInput = ref(false)
+const addCertification = (certification: Certification) => {
+  form.value.certifications?.push(certification)
+  showCertificationInput.value = false
+}
 </script>
 
 <template>
@@ -113,6 +130,65 @@ const addJob = (job: Job) => {
     <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
       <div class="col-span-4">
         <PillDisplayCombobox option-label="skills" :options="skills" v-model="form.skills" />
+      </div>
+    </div>
+
+    <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+      <div class="col-span-3">
+        <div v-if="form.education.length <= 0 && !showEducationInput" class="text-center">
+          <svg class="mx-auto size-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+          </svg>
+          <h3 class="mt-2 text-sm font-semibold text-gray-900">You added any education yet</h3>
+          <p class="mt-1 text-sm text-gray-500">Get started by adding your education.</p>
+          <div class="mt-6">
+            <button type="button" class="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" @click="showEducationInput = true">
+              <PlusIcon class="-ml-0.5 mr-1.5 size-5" aria-hidden="true" />
+              Add Education
+            </button>
+          </div>
+        </div>
+        <div v-if="showEducationInput">
+          <h2 class="text-2xl text-black">Education</h2>
+          <EducationInput @created="addEducation" />
+        </div>
+        <div class="mt-6" v-if="form.education && form.education.length > 0" v-for="edu in form.education" :key="edu.school">
+          <EducationDisplay :education="edu"/>
+        </div>
+        <div class="mt-6" v-if="form.education && form.education.length > 0">
+          <button type="button" class="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" @click="showEducationInput = true">
+            <PlusIcon class="-ml-0.5 mr-1.5 size-5" aria-hidden="true" />
+            Add Another School
+          </button>
+        </div>
+      </div>
+      <div class="col-span-3">
+        <div v-if="form.certifications && form.certifications.length <= 0  && !showCertificationInput" class="text-center">
+          <svg class="mx-auto size-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+          </svg>
+          <h3 class="mt-2 text-sm font-semibold text-gray-900">You added any certifications yet</h3>
+          <p class="mt-1 text-sm text-gray-500">Get started by adding a certification.</p>
+          <div class="mt-6">
+            <button type="button" class="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" @click="showCertificationInput = true">
+              <PlusIcon class="-ml-0.5 mr-1.5 size-5" aria-hidden="true" />
+              Add Certification
+            </button>
+          </div>
+        </div>
+        <div v-if="showCertificationInput">
+          <h2 class="text-2xl text-black">Certification</h2>
+          <CertificationInput @created="addCertification" />
+        </div>
+        <div class="mt-6" v-if="form.certifications && form.certifications.length > 0" v-for="cert in form.certifications" :key="cert.name">
+          <CertificationDisplay :certification="cert"/>
+        </div>
+        <div class="mt-6" v-if="form.education && form.education.length > 0">
+          <button type="button" class="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" @click="showCertificationInput = true">
+            <PlusIcon class="-ml-0.5 mr-1.5 size-5" aria-hidden="true" />
+            Add Another Certification
+          </button>
+        </div>
       </div>
     </div>
 
