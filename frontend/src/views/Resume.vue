@@ -5,6 +5,9 @@ import { inject, onMounted, ref } from 'vue'
 import type { PagedResponse, Resume } from '@/domain/types.ts'
 import Card from '@/components/Card.vue'
 import JobDisplay from '@/components/JobDisplay.vue'
+import EducationDisplay from '@/components/EducationDisplay.vue'
+import { c } from 'vite/dist/node/moduleRunnerTransport.d-CXw_Ws6P'
+import CertificationDisplay from '@/components/CertificationDisplay.vue'
 
 const http = inject<HttpClient>('http')!
 const resume = ref<Resume>()
@@ -53,11 +56,15 @@ onMounted(() => {
           </div>
 
           <div class="mb-5">
-            <!-- TODO: Education -->
+            <div v-for="edu in resume.education" :key="edu.school" class="mb-2">
+              <EducationDisplay :education="edu" />
+            </div>
           </div>
 
           <div class="mb-5">
-            <!-- TODO: Certifications/Training -->
+            <div v-for="cert in resume.certifications" :key="cert.name" class="mb-2">
+              <CertificationDisplay :certification="cert" />
+            </div>
           </div>
 
           <div class="mb-5">
