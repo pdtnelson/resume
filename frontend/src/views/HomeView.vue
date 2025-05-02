@@ -36,7 +36,7 @@ onBeforeMount(() => {
     </div>
     <div class="container mx-auto mt-5 px-4 sm:px-6 lg:px-8">
       <div>
-        <p>
+        <p class="text-lg">
           Same shaman banjo, you probably haven't heard of them fingerstache salvia waistcoat.
           Poutine glossier gochujang air plant gluten-free, put a bird on it biodiesel VHS aesthetic dreamcatcher activated charcoal.
           Beard sriracha ascot, williamsburg paleo mlkshk taxidermy.
@@ -57,19 +57,19 @@ onBeforeMount(() => {
       </div>
       <div id="showcase" class="h-96 mt-5 px=7 grid grid-cols-1 md:grid-cols-3 md:gap-5">
         <div class="flex flex-col justify-center items-center rounded-lg dark:bg-slate-600">
-          <RouterLink :to="{ name: 'resume' }" class="text-gray-300 text-center">
+          <RouterLink :to="{ name: 'resume' }" class="text-white text-center">
             <DocumentTextIcon class="h-56 w-56"/>
             <p>View my Resume</p>
           </RouterLink>
         </div>
         <div class="flex flex-col justify-center items-center rounded-lg dark:bg-slate-600">
-          <a href="https://github.com/pdtnelson" class="text-gray-300 text-center">
-            <img class="h-56 w-56" src="/github-mark-white.svg" alt="">
+          <a href="https://github.com/pdtnelson" class="text-white text-center">
+            <img class="h-56 w-56 pb-3" src="/github-mark-white.svg" alt="">
             <p>Check out my GitHub</p>
           </a>
         </div>
         <div class="flex flex-col justify-center items-center rounded-lg dark:bg-slate-600">
-          <RouterLink :to="{ name: 'blog' }" class="text-gray-300 text-center">
+          <RouterLink :to="{ name: 'blog' }" class="text-white text-center">
             <BookOpenIcon class="h-56 w-56"/>
             <p>Read My Blog</p>
           </RouterLink>
