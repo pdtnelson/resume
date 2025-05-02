@@ -3,6 +3,7 @@ import { inject, onBeforeMount, ref } from 'vue'
 import type HttpClient from '@/http/http-client'
 import type { PagedResponse, Profile } from '@/domain/types.ts'
 import { useRoute } from 'vue-router'
+import { BookOpenIcon, DocumentTextIcon } from '@heroicons/vue/24/solid'
 
 const http: HttpClient = inject('http')!
 const route = useRoute()
@@ -55,14 +56,23 @@ onBeforeMount(() => {
         </p>
       </div>
       <div id="showcase" class="h-96 mt-5 px=7 grid grid-cols-1 md:grid-cols-3 md:gap-5">
-        <div class="flex justify-center items-center rounded-lg dark:bg-slate-600 text-gray-300">
-          <p>View my Resume</p>
+        <div class="flex flex-col justify-center items-center rounded-lg dark:bg-slate-600">
+          <RouterLink :to="{ name: 'resume' }" class="text-gray-300 text-center">
+            <DocumentTextIcon class="h-56 w-56"/>
+            <p>View my Resume</p>
+          </RouterLink>
         </div>
-        <div class="flex justify-center items-center rounded-lg dark:bg-slate-600 text-gray-300">
-          <p>View my Resume</p>
+        <div class="flex flex-col justify-center items-center rounded-lg dark:bg-slate-600">
+          <a href="https://github.com/pdtnelson" class="text-gray-300 text-center">
+            <img class="h-56 w-56" src="/github-mark-white.svg" alt="">
+            <p>Check out my GitHub</p>
+          </a>
         </div>
-        <div class="flex justify-center items-center rounded-lg dark:bg-slate-600 text-gray-300">
-          <p>View my Resume</p>
+        <div class="flex flex-col justify-center items-center rounded-lg dark:bg-slate-600">
+          <RouterLink :to="{ name: 'blog' }" class="text-gray-300 text-center">
+            <BookOpenIcon class="h-56 w-56"/>
+            <p>Read My Blog</p>
+          </RouterLink>
         </div>
       </div>
     </div>
