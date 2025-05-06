@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
 
-
+// TODO: Add job logo field
 export type Job = {
   title: string
   company: string

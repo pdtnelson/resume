@@ -13,7 +13,7 @@ const menu: {name: string, to: string}[] = [
 
 <template>
   <header class="relative z-50 flex h-16 px-7 dark:text-white">
-    <div class="hidden sm:flex mx-auto w-full items-center justify-between px-4 pt-4 lg:px-4 lg:py-2">
+    <div class="hidden sm:flex mx-auto w-full items-center justify-between pt-4 lg:py-2">
       <h1 class="text-2xl">Peter D. Nelson</h1>
       <div>
         <ul class="flex flex-row gap-2">
