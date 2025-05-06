@@ -36,6 +36,7 @@ class Profile(BaseModel):
 
 class Job(BaseModel):
     title: str
+    company: str
     start_date: datetime
     end_date: datetime | None = None
     description: str
@@ -44,10 +45,24 @@ class Job(BaseModel):
     def from_dict(data: dict):
         return Job(
             title=data["title"],
+            company=data["company"],
             start_date=data["start_date"],
             end_date=data["end_date"] if data["end_date"] else None,
             description=data["duties"]
         )
+
+
+class Education(BaseModel):
+    school: str
+    city: str
+    state: str
+    description: str
+
+
+class Certification(BaseModel):
+    name: str
+    issuer: str
+    certification_url: str | None
 
 
 class Resume(BaseModel):
@@ -60,6 +75,8 @@ class Resume(BaseModel):
     zip: int = Field(..., max=5)
     skills: list[str]
     jobs: list[Job]
+    education: list[Education]
+    certifications: list[Certification] | None
 
     @staticmethod
     def from_dict(id: str | ObjectId | None, data: dict):
@@ -72,7 +89,9 @@ class Resume(BaseModel):
             state=data["state"],
             zip=data["zip"],
             skills=data["skills"],
-            jobs=data["jobs"]
+            jobs=data["jobs"],
+            education=data["education"],
+            certifications=data["certifications"] if data["certifications"] else None
         )
 
 

@@ -1,6 +1,8 @@
 import axios from 'axios'
 import axiosRetry from 'axios-retry'
 import type { AxiosInstance } from 'axios'
+import { DateTime } from 'luxon'
+import { cloneDeep } from 'lodash'
 
 
 
@@ -20,6 +22,57 @@ export default class HttpClient {
     if (token) {
       this.client.defaults.headers.common['Authorization'] = `Bearer ${token}`
     }
+
+    this.client.interceptors.response.use(
+      (response) => {
+        const dateFields = [
+          'created_at',
+          'updated_at',
+          'start_date',
+          'end_date'
+        ]
+
+        const maybeCoerceDatestringToLuxon = (
+          datestr?: string
+        ): DateTime<true> | string | undefined => {
+          if (datestr) {
+            const dtMaybe = DateTime.fromISO(datestr)
+            if (dtMaybe.isValid) {
+              return dtMaybe
+            }
+          }
+          return datestr
+        }
+
+        const coerceLuxonDeep = (unk: any): any => {
+          if (Array.isArray(unk)) {
+            return unk.map((nested: unknown) => coerceLuxonDeep(nested))
+          } else if (unk !== null && typeof unk === 'object') {
+            Object.keys(unk).forEach((key) => {
+              if (typeof unk[key] === 'object') {
+                unk[key] = coerceLuxonDeep(unk[key])
+              } else if (
+                typeof unk[key] === 'string' &&
+                dateFields.includes(key) &&
+                unk[key].trim().length > 0
+              ) {
+                unk[key] = maybeCoerceDatestringToLuxon(unk[key])
+              }
+            })
+          }
+          return unk
+        }
+
+        return {
+          ...response,
+          data: coerceLuxonDeep(response.data ? cloneDeep(response.data) : response.data)
+        }
+      },
+      (e) => {
+        console.error('Error:', e)
+        return Promise.reject(e)
+      }
+    )
   }
 
   public static get instance(): HttpClient {

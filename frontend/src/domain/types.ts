@@ -1,8 +1,25 @@
-export type Job ={
+import { DateTime } from 'luxon'
+
+// TODO: Add job logo field
+export type Job = {
   title: string
-  start_date: Date | null
-  end_date: Date | null
+  company: string
+  start_date: DateTime | null
+  end_date?: DateTime | null
   description: string
+}
+
+export type Education = {
+  school: string
+  city: string
+  state: string
+  description: string
+}
+
+export type Certification = {
+  name: string
+  issuer: string
+  certification_url?: string
 }
 
 export type Resume = {
@@ -15,10 +32,13 @@ export type Resume = {
   zip: number | null
   skills: string[]
   jobs: Job[]
+  education: Education[]
+  certifications: Certification[] | null
 }
 
 export type CreateResumeRequest = Omit<Resume, 'id'>
 
+// TODO: Change string | null to use omitted create request
 export type Profile = {
   id: string | null
   name: string
@@ -27,6 +47,7 @@ export type Profile = {
   salary: number
   profile_img_url: string
   text: string
+  tracking_uuid: string
 }
 
 export type PagedResponse<T> = {
