@@ -1,4 +1,5 @@
 import { DateTime } from 'luxon'
+import type { JwtPayload } from "jwt-decode";
 
 // TODO: Add job logo field
 export type Job = {
@@ -53,4 +54,12 @@ export type Profile = {
 export type PagedResponse<T> = {
   data: T[]
   total: number
+}
+
+export interface UserJWTPayload extends JwtPayload {
+  user_id: string
+  email: string
+  first_name: string
+  last_name: string
+  roles: string[]
 }

@@ -3,10 +3,12 @@ import axiosRetry from 'axios-retry'
 import type { AxiosInstance } from 'axios'
 import { DateTime } from 'luxon'
 import { cloneDeep } from 'lodash'
+import { useNotificationStore } from "@/stores/notification.ts";
 
 
 
 export default class HttpClient {
+  toast = useNotificationStore()
   static #instance: HttpClient
   client: AxiosInstance
 
@@ -88,5 +90,12 @@ export default class HttpClient {
 
   public clearAuthHeader() {
     delete this.client.defaults.headers.common['Authorization']
+  }
+
+  public handleError(error: any, showToast: boolean = false, message: string = '') {
+    if (showToast) {
+      this.toast.show('error', message ? message : error.message)
+    }
+    console.error(error.message)
   }
 }

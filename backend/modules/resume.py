@@ -12,7 +12,7 @@ router = APIRouter()
 
 # TODO: Versioning (Add query param to get latest, implement revision field)
 @router.get("/resumes")
-def get_resume(limit: int = 10, offset: int = 0) -> PaginatedResponse[Resume]:
+def get_resume(limit: int = 1, offset: int = 0) -> PaginatedResponse[Resume]:
     cursor = db['resumes'].find({})
 
     cursor.skip(offset)
