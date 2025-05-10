@@ -9,6 +9,7 @@ const http: HttpClient = inject('http')!
 const route = useRoute()
 const default_uuid = import.meta.env.VITE_DEFAULT_PROFILE_UUID
 const profile = ref<Profile>()
+const targetedProfile = ref(true)
 async function fetchData() {
   try {
 
@@ -29,49 +30,40 @@ onBeforeMount(() => {
 </script>
 
 <template>
-  <main class="flex flex-col flex-1 min-h-full -mt-16 mb-7">
-    <div id="hero" class="flex flex-initial h-32 md:h-80"></div>
+  <main class="flex flex-col flex-1 min-h-full -mt-16 mb-7 dark:text-neutral-300 bg-neutral-50 dark:bg-zinc-900 text-zinc-900">
+    <div id="hero" class="flex flex-initial h-32 md:h-80 xl:h-96"></div>
     <div id="profile-picture" class="flex items-center justify-center">
-      <img class="rounded-full -mt-[125px]" src="https://placecats.com/250/250" alt="">
+      <img class="rounded-full -mt-[125px] h-64 w-64" src="/profile.jpeg" alt="">
     </div>
     <div class="container mx-auto mt-5 px-4 sm:px-6 lg:px-8">
-      <div>
-        <p class="text-lg">
-          Same shaman banjo, you probably haven't heard of them fingerstache salvia waistcoat.
-          Poutine glossier gochujang air plant gluten-free, put a bird on it biodiesel VHS aesthetic dreamcatcher activated charcoal.
-          Beard sriracha ascot, williamsburg paleo mlkshk taxidermy.
-          Jawn roof party flexitarian you probably haven't heard of them la croix
-          microdosing kombucha artisan gochujang hella. Kickstarter crucifix palo santo, polaroid XOXO
-          fam portland tilde hexagon sus fashion axe Brooklyn paleo freegan bespoke. Tacos celiac tbh,
-          hexagon hoodie man bun solarpunk DIY taiyaki.
-          <br/>
-          <br/>
-          Microdosing aesthetic hell of hella quinoa pitchfork put a bird on it pour-over hashtag blue
-          bottle squid tonx keytar roof party slow-carb. Same selvage jianbing woke schlitz kogi
-          typewriter solarpunk jean shorts. Authentic meggings gluten-free flannel drinking vinegar
-          four dollar toast. Subway tile seitan shaman distillery tousled occupy marfa poutine kogi
-          organic artisan franzen solarpunk JOMO ascot. Listicle glossier everyday carry selfies DSA
-          letterpress. Asymmetrical tote bag gorpcore, schlitz tbh adaptogen venmo sriracha selvage
-          PBR&B slow-carb grailed.
+      <div class="mb-8 xl:mb-16">
+        <p class="font-extrabold text-3xl xl:text-4xl mb-2">I'm Peter.</p>
+        <p class="font-bold text-2xl xl:text-3xl mb-3">Software Engineer. Security Enthusiast. Skier.</p>
+        <p class="text-lg xl:text-xl font-semibold">
+          I've been writing software and working on web projects since 2013 and have worked for small startups, household names and everything in between.
+          I have extensive experience designing applications, architecting infrastructure, and engaging with project stakeholders.
+          Code is a tool that I use to solve business problems and help organizations thrive on their way to achieving their goals.
+          <span class="font-semibold" v-if="targetedProfile">You can get a better idea of my accomplishments and abilities via the links below. If you're interested in what you see, get in touch with me and we can talk about how I can
+            contribute to your amazing company.</span>
         </p>
       </div>
-      <div id="showcase" class="h-96 mt-5 px=7 grid grid-cols-1 md:grid-cols-3 md:gap-5">
-        <div class="flex flex-col justify-center items-center rounded-lg dark:bg-slate-600">
-          <RouterLink :to="{ name: 'resume' }" class="text-white text-center">
+      <div id="showcase" class="sm:h-72 xl:h-96  sm:mx-auto px=7 grid grid-cols-1 md:grid-cols-3 md:gap-8">
+        <div class="flex flex-col justify-center items-center bg-white shadow-lg dark:shadow-md dark:shadow-white rounded">
+          <RouterLink :to="{ name: 'resume' }" class="text-zinc-900 text-center">
             <DocumentTextIcon class="h-56 w-56"/>
-            <p>View my Resume</p>
+            <p class="text-xl text-semibold">View my Resume</p>
           </RouterLink>
         </div>
-        <div class="flex flex-col justify-center items-center rounded-lg dark:bg-slate-600">
-          <a href="https://github.com/pdtnelson" class="text-white text-center">
-            <img class="h-56 w-56 pb-3" src="/github-mark-white.svg" alt="">
-            <p>Check out my GitHub</p>
+        <div class="flex flex-col justify-center items-center bg-white shadow-lg dark:shadow-md dark:shadow-white rounded">
+          <a href="https://github.com/pdtnelson" class="text-zinc-900 text-center">
+            <img class="h-56 w-56 pb-3" src="/github-mark.svg" alt="">
+            <p class="text-xl text-semibold">Check out my GitHub</p>
           </a>
         </div>
-        <div class="flex flex-col justify-center items-center rounded-lg dark:bg-slate-600">
-          <RouterLink :to="{ name: 'blog' }" class="text-white text-center">
+        <div class="flex flex-col justify-center items-center bg-white shadow-lg dark:shadow-md dark:shadow-white rounded">
+          <RouterLink :to="{ name: 'blog' }" class="text-zinc-900 text-center">
             <BookOpenIcon class="h-56 w-56"/>
-            <p>Read My Blog</p>
+            <p class="text-xl text-semibold">Read My Blog</p>
           </RouterLink>
         </div>
       </div>
