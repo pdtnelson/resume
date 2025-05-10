@@ -9,7 +9,6 @@ const http: HttpClient = inject('http')!
 const route = useRoute()
 const default_uuid = import.meta.env.VITE_DEFAULT_PROFILE_UUID
 const profile = ref<Profile>()
-const targetedProfile = ref(true)
 async function fetchData() {
   try {
 
@@ -43,7 +42,7 @@ onBeforeMount(() => {
           I've been writing software and working on web projects since 2013 and have worked for small startups, household names and everything in between.
           I have extensive experience designing applications, architecting infrastructure, and engaging with project stakeholders.
           Code is a tool that I use to solve business problems and help organizations thrive on their way to achieving their goals.
-          <span class="font-semibold" v-if="targetedProfile">You can get a better idea of my accomplishments and abilities via the links below. If you're interested in what you see, get in touch with me and we can talk about how I can
+          <span class="font-semibold">You can get a better idea of my accomplishments and abilities via the links below. If you're interested in what you see, get in touch with me and we can talk about how I can
             contribute to your amazing company.</span>
         </p>
       </div>

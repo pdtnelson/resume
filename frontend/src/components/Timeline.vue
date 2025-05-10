@@ -9,8 +9,7 @@ const { jobs } = defineProps<{ jobs: Job[]}>()
     <div class="timeline-element relative my-16 after:clear-both after:table" v-for="(job, index) in jobs">
       <span class="timeline-element-icon h-14 w-14 absolute top-0 left-1/2 -ml-7">
         <!-- GitHub logo as placeholder. TODO: Remove/Replace -->
-        <img class="hidden dark:block" src="/github-mark.svg" alt="">
-        <img class="" src="/github-mark-white.svg" alt="">
+        <img :src="job.company_logo_url" alt="">
       </span>
       <div
         class="timeline-element-content relative bg-white w-[44%] ml-0 p-6 rounded-[.25rem] text-black shadow-md"
