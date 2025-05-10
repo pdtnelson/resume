@@ -9,10 +9,11 @@ const { jobs } = defineProps<{ jobs: Job[]}>()
     <div class="timeline-element relative my-16 after:clear-both after:table" v-for="(job, index) in jobs">
       <span class="timeline-element-icon h-14 w-14 absolute top-0 left-1/2 -ml-7">
         <!-- GitHub logo as placeholder. TODO: Remove/Replace -->
-        <img src="/github-mark.svg" alt="">
+        <img class="hidden dark:block" src="/github-mark.svg" alt="">
+        <img class="" src="/github-mark-white.svg" alt="">
       </span>
       <div
-        class="timeline-element-content relative bg-white w-[44%] ml-0 p-6 rounded-[.25rem] text-black"
+        class="timeline-element-content relative bg-white w-[44%] ml-0 p-6 rounded-[.25rem] text-black shadow-md"
         :class="{'float-right': index % 2 != 0 }"
       >
         <div class="mb-2">
@@ -29,6 +30,9 @@ const { jobs } = defineProps<{ jobs: Job[]}>()
 </template>
 
 <style scoped>
+.timeline::before {
+  background-image: linear-gradient(180deg,rgba(255, 255, 255, 1) 0%, rgba(24, 24, 24, 1) 2%, rgba(24, 24, 24, 1) 91%, rgba(255, 255, 255, 1) 100%);
+}
 @media(prefers-color-scheme: dark) {
   .timeline::before {
     background-image: linear-gradient(180deg,rgba(24, 24, 24, 1) 0%, rgba(255, 255, 255, 1) 2%, rgba(255, 255, 255, 1) 91%, rgba(24, 24, 24, 1) 100%);

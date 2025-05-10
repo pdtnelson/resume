@@ -37,6 +37,7 @@ class Profile(BaseModel):
 class Job(BaseModel):
     title: str
     company: str
+    company_logo_url: str | None = None
     start_date: datetime
     end_date: datetime | None = None
     description: str
@@ -46,6 +47,7 @@ class Job(BaseModel):
         return Job(
             title=data["title"],
             company=data["company"],
+            company_log_url=data["company_logo_url"] if data["company_logo_url"] else None,
             start_date=data["start_date"],
             end_date=data["end_date"] if data["end_date"] else None,
             description=data["duties"]

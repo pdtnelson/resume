@@ -36,7 +36,7 @@ onMounted(() => {
         <h2 class="text-xl sm:truncate sm:text-3xl sm:tracking-tight mb-2 dark:text-gray-200">Skills</h2>
         <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-2">
           <div v-for="(skill, index) in resume.skills" :key="index">
-            <p class="text-base text-gray-200 font-semibold">{{ skill }}</p>
+            <p class="text-base dark:text-gray-200 font-semibold">{{ skill }}</p>
           </div>
         </div>
       </div>
