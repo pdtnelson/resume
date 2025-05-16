@@ -2,13 +2,13 @@
 import { formatCurrency } from '@/lib/utils.ts'
 import type HttpClient from '@/http/http-client.ts'
 import { inject, onBeforeMount, ref } from 'vue'
-import type { ListResponse, Profile } from '@/domain/types.ts'
+import type { PagedResponse, Profile } from '@/domain/types.ts'
 
 const http: HttpClient = inject('http')!
 const profiles = ref<Profile[]>()
 const fetchData = async () => {
   try {
-    const response = await http.client.get<ListResponse<Profile>>('/profiles')
+    const response = await http.client.get<PagedResponse<Profile>>('/profiles')
     profiles.value = response.data.data
   } catch (e) {
     console.error(e)
