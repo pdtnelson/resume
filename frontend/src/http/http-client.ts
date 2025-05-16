@@ -14,7 +14,7 @@ export default class HttpClient {
 
   private constructor() {
     this.client = axios.create({
-      baseURL: `${import.meta.env.VITE_BASE_API_URL}`,
+      baseURL: `${location.protocol}//${location.host}/api/`,
       headers: {
         'Content-Type': 'application/json'
       }
