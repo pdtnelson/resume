@@ -2,6 +2,7 @@
 import { RouterView, useRoute } from 'vue-router'
 import MainNav from "@/components/MainNav.vue";
 import { computed } from 'vue'
+import Foot from "@/components/Foot.vue";
 
 const route = useRoute()
 const showNav = computed(() => {
@@ -10,8 +11,9 @@ const showNav = computed(() => {
 </script>
 
 <template>
-  <MainNav v-if="showNav"/>
+<!--  <MainNav v-if="showNav"/>-->
   <RouterView />
+  <Foot />
 </template>
 
 <style scoped>

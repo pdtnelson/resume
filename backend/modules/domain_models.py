@@ -79,6 +79,7 @@ class Resume(BaseModel):
     jobs: list[Job]
     education: list[Education]
     certifications: list[Certification] | None
+    revision: int  # PDT: Start at zero and reserve zero as current
 
     @staticmethod
     def from_dict(id: str | ObjectId | None, data: dict):
@@ -93,7 +94,8 @@ class Resume(BaseModel):
             skills=data["skills"],
             jobs=data["jobs"],
             education=data["education"],
-            certifications=data["certifications"] if data["certifications"] else None
+            certifications=data["certifications"] if data["certifications"] else None,
+            revision=data["revision"]
         )
 
 
