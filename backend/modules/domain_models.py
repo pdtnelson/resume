@@ -37,20 +37,20 @@ class Profile(BaseModel):
 class Job(BaseModel):
     title: str
     company: str
-    company_logo_url: str | None = None
+    description: str
     start_date: datetime
     end_date: datetime | None = None
-    description: str
+    duties: list[str]
 
     @staticmethod
     def from_dict(data: dict):
         return Job(
             title=data["title"],
             company=data["company"],
-            company_log_url=data["company_logo_url"] if data["company_logo_url"] else None,
             start_date=data["start_date"],
             end_date=data["end_date"] if data["end_date"] else None,
-            description=data["duties"]
+            description=data["description"],
+            duties=data["duties"]
         )
 
 
