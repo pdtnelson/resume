@@ -11,7 +11,19 @@ router = APIRouter()
 
 
 # TODO: Versioning (Add query param to get latest, implement revision field)
-@router.get("/resumes")
+@router.get("/resume")
+def get_resume_client_side(revision: int = 0):
+    try:
+        resume_doc = db["resumes"].find_one({"revision": {"$eq": revision}})
+        return Resume.from_dict(resume_doc["_id"], resume_doc)
+    except Exception as ex:
+        logging.exception(f"Error fetching client side resume")
+        raise HTTPException(status_code=500, detail="Error getting resume")
+
+    
+@router.get("/resumes", dependencies=[
+    Depends(JWTBearer(required_roles=[UserRole.SITE_ADMIN]))
+])
 def get_resume(limit: int = 1, offset: int = 0) -> PaginatedResponse[Resume]:
     cursor = db['resumes'].find({})
 

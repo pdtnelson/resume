@@ -74,7 +74,7 @@ onBeforeMount(() => {
     <section id="links" class="grid grid-cols-1 md:grid-cols-3 gap-8 py-12">
 
       <!-- Resume Link Card -->
-      <a href="path/to/your/resume.pdf" target="_blank" class="block">
+      <RouterLink :to="{ name: 'resume' }" class="block">
         <div class="bg-white rounded-xl shadow-lg p-7 flex flex-col items-center text-center h-full transform hover:scale-105 transition-transform duration-300 ease-in-out hover:shadow-2xl border-b-4 border-gray-800">
           <svg class="w-16 h-16 text-gray-800 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
@@ -83,7 +83,7 @@ onBeforeMount(() => {
           <p class="text-gray-700 mb-4">Take a look at my resume for a detailed look at my qualifications and experience.</p>
           <span class="text-blue-600 font-semibold hover:text-blue-800">View Resume &rarr;</span>
         </div>
-      </a>
+      </RouterLink>
 
       <!-- GitHub Profile Card -->
       <a href="https://github.com/your-github-username" target="_blank" class="block">

@@ -7,7 +7,7 @@ export type Job = {
   company: string
   description: string
   start_date: DateTime | null
-  end_date?: DateTime | null
+  end_date: DateTime | null
   duties: string[]
 }
 

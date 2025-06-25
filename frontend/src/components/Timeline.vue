@@ -3,17 +3,16 @@ import type { Job } from "@/domain/types.ts";
 import TimelineItem from "@/components/TimelineItem.vue";
 
 const { jobs } = defineProps<{ jobs: Job[]}>()
+jobs.sort((a, b) => {
+  return b.start_date!.toMillis() - a.start_date!.toMillis()
+})
 </script>
 
 <template>
   <section class="timeline">
-    <!-- Job Experience 1 -->
-    <TimelineItem />
-
-    <!-- Job Experience 2 -->
-    <TimelineItem />
-    <!-- Job Experience 3 -->
-    <TimelineItem />
+    <template v-for="job in jobs">
+      <TimelineItem :job="job" />
+    </template>
   </section>
 </template>
 

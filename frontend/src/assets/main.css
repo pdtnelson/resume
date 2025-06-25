@@ -32,7 +32,6 @@ body {
 .hero-background {
   background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #1e40af 100%); /* Deep blue to slightly lighter blue */
   clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%); /* Creates a diagonal cut at the bottom */
-  min-height: 50vh; /* Minimum height for the hero */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -42,7 +41,6 @@ body {
 @media (max-width: 768px) {
   .hero-background {
     clip-path: polygon(0 0, 100% 0, 100% 90%, 0% 100%);
-    min-height: 40vh;
   }
 }
 

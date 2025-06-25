@@ -1,19 +1,24 @@
 <script setup lang="ts">
 import type { Job } from "@/domain/types.ts";
 import { ref } from "vue";
+import type { DateTime } from "luxon";
 
-const { job } = defineProps<{job?: Job}>()
+const { job } = defineProps<{job: Job}>()
 const show = ref<Boolean>(false)
 
+const formatDateRange = (startDate: DateTime, endDate: DateTime | null) => {
+  const endDateString = endDate ? `${endDate.monthLong} ${endDate.year}` : 'Present'
+  return `${startDate.monthLong} ${startDate.year} - ${endDateString}`
+}
 </script>
 
 <template>
   <div class="timeline-item">
     <div class="timeline-card w-full md:w-5/12">
-      <h3 class="text-2xl font-bold text-gray-900 mb-1">Senior Software Engineer</h3>
-      <p class="text-lg font-semibold text-blue-700 mb-2">Tech Solutions Inc. <span class="text-gray-500 text-base font-normal">| Jan 2022 - Present</span></p>
+      <h3 class="text-2xl font-bold text-gray-900 mb-1">{{ job.title }}</h3>
+      <p class="text-lg font-semibold text-blue-700 mb-2">{{ job.company }}<span class="text-gray-500 text-base font-normal"> | {{ formatDateRange(job.start_date!, job.end_date) }}</span></p>
       <p class="text-gray-700 text-base leading-relaxed">
-        Leading the development of highly scalable backend services and fostering a culture of technical excellence within agile teams. Focused on cloud-native solutions and distributed system architecture.
+        {{ job.description }}
       </p>
       <button class="toggle-button" @click="show = !show">
         Show Responsibilities
@@ -22,11 +27,7 @@ const show = ref<Boolean>(false)
       <Transition>
         <div class="job-responsibilities" v-show="show">
           <ul class="text-gray-600">
-            <li>Designed and implemented a new microservices architecture reducing latency by 25%.</li>
-            <li>Mentored junior and mid-level engineers on best practices, code quality, and system design.</li>
-            <li>Optimized database queries and API endpoints, improving system performance by 30%.</li>
-            <li>Led code reviews and ensured adherence to coding standards across multiple projects.</li>
-            <li>Collaborated with product teams to translate business requirements into technical specifications.</li>
+            <li v-for="duty in job.duties">{{ duty }}</li>
           </ul>
         </div>
       </Transition>
