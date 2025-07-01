@@ -5,10 +5,10 @@ import type { JwtPayload } from "jwt-decode";
 export type Job = {
   title: string
   company: string
-  company_logo_url: string
-  start_date: DateTime | null
-  end_date?: DateTime | null
   description: string
+  start_date: DateTime | null
+  end_date: DateTime | null
+  duties: string[]
 }
 
 export type Education = {
