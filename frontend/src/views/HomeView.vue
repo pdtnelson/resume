@@ -3,7 +3,6 @@ import { inject, onBeforeMount, ref } from 'vue'
 import type HttpClient from '@/http/http-client'
 import type { PagedResponse, Profile, Resume } from '@/domain/types.ts'
 import { useRoute } from 'vue-router'
-import { BookOpenIcon, DocumentTextIcon } from '@heroicons/vue/24/solid'
 import Hero from "@/components/Hero.vue";
 import SkillsDisplay from "@/components/SkillsDisplay.vue";
 
@@ -14,27 +13,13 @@ const profile = ref<Profile>()
 const skills = ref<string[]>()
 
 
-const fetchProfile = async () => {
+const fetchData = async () => {
   try {
     const response = await http.client.get<PagedResponse<Profile>>(`/profiles?tracking_uuid=${getProfileTrackingId()}`)
     profile.value = response.data.data[0]
   } catch (e) {
     console.error(e)
   }
-}
-
-const fetchSkills = async () => {
-  try {
-    const response = await http.client.get<Resume>(`/resumes?revision=0`)
-    skills.value = response.data.skills
-  } catch (e) {
-    console.error(e)
-  }
-}
-
-const fetchData = async () => {
-  await fetchProfile()
-  await fetchSkills()
 }
 
 const getProfileTrackingId = () => {

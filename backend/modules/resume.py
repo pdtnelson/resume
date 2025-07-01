@@ -25,13 +25,13 @@ def get_resume_client_side(revision: int = 0):
     Depends(JWTBearer(required_roles=[UserRole.SITE_ADMIN]))
 ])
 def get_resume(limit: int = 1, offset: int = 0) -> PaginatedResponse[Resume]:
-    cursor = db['resumes'].find({})
+    cursor = db["resumes"].find({})
 
     cursor.skip(offset)
     cursor.limit(limit)
 
     data = [Resume.from_dict(doc["_id"], doc) for doc in cursor]
-    total = db['resumes'].count_documents({})
+    total = db["resumes"].count_documents({})
 
     return PaginatedResponse(data=data, total=total)
 
@@ -41,7 +41,7 @@ def get_resume(limit: int = 1, offset: int = 0) -> PaginatedResponse[Resume]:
 ])
 def create_resume(resume: Resume) -> Resume:
     try:
-        result = db['resumes'].insert_one(resume.model_dump(exclude="id"))
+        result = db["resumes"].insert_one(resume.model_dump(exclude="id"))
         return Resume.from_dict(result.inserted_id, resume.model_dump())
     except BaseException as ex:
         logging.exception(f"Error saving resume: {ex}")
