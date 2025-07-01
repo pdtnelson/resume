@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { inject, onBeforeMount, ref } from 'vue'
 import type HttpClient from '@/http/http-client'
-import type { PagedResponse, Profile, Resume } from "@/domain/types.ts";
+import type { PagedResponse, Profile, Resume } from '@/domain/types.ts'
 import { useRoute } from 'vue-router'
 import { BookOpenIcon, DocumentTextIcon } from '@heroicons/vue/24/solid'
 import Hero from "@/components/Hero.vue";
+import SkillsDisplay from "@/components/SkillsDisplay.vue";
 
 const http: HttpClient = inject('http')!
 const route = useRoute()
@@ -50,7 +51,7 @@ onBeforeMount(() => {
   <Hero />
   <main class="container mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Profile Picture & Introduction Section -->
-    <section class="profile-intro-card transform hover:scale-[1.005] transition-transform duration-300 ease-in-out">
+    <section class="profile-intro-card relative z-10 -mt-32 p-10 bg-white rounded-3xl">
       <div class="flex justify-center -mt-20 sm:-mt-24 mb-6">
         <!-- Circular profile picture -->
         <img src="/profile.jpeg"
@@ -112,35 +113,13 @@ onBeforeMount(() => {
 
     <!-- Key Skills/Expertise Section -->
     <section class="bg-white rounded-2xl shadow-lg p-8 sm:p-10 md:p-12 mb-12">
-      <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-8 text-center">
-        My Expertise
-      </h2>
-      <div class="flex flex-wrap justify-center gap-4">
-        <span class="skill-badge">Python</span>
-        <span class="skill-badge">PHP</span>
-        <span class="skill-badge">Java</span>
-        <span class="skill-badge">TypeScript</span>
-        <span class="skill-badge">Vue.js</span>
-        <span class="skill-badge">AWS</span>
-        <span class="skill-badge">Docker</span>
-        <span class="skill-badge">Microservices</span>
-        <span class="skill-badge">Distributed Systems</span>
-        <span class="skill-badge">System Design</span>
-        <span class="skill-badge">RESTFul API Development</span>
-        <span class="skill-badge">SQL & NoSQL Databases</span>
-        <span class="skill-badge">CI/CD Automation</span>
-        <span class="skill-badge">DevOps Principles</span>
-        <span class="skill-badge">Agile Methodologies</span>
-        <span class="skill-badge">Secure Development Practices</span>
-        <span class="skill-badge">Technical Leadership</span>
-        <span class="skill-badge">Mentorship</span>
-      </div>
+      <SkillsDisplay title="My Expertise" />
     </section>
   </main>
 </template>
 
-<style scoped>
-#hero {
-  background-image: url("/code_2.png");
+<style lang="scss" scoped>
+.profile-intro-card {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15); /* Stronger shadow for prominence */
 }
 </style>

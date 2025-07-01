@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div class="hero-background text-white px-4 sm:px-6 lg:px-8">
+  <div class="hero-background relative flex items-center justify-center text-white px-4 sm:px-6 lg:px-8">
     <div class="container mx-auto text-center py-16 relative z-10 mb-32 min-h-[20vh] sm:min-h-[40vh]">
       <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-4 drop-shadow-lg leading-tight">
         Peter D. Nelson
@@ -15,6 +15,13 @@
   </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+.hero-background {
+  background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #1e40af 100%); /* Deep blue to slightly lighter blue */
+  clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%); /* Creates a diagonal cut at the bottom */
 
+  @media (max-width: 768px) {
+    clip-path: polygon(0 0, 100% 0, 100% 90%, 0% 100%);
+  }
+}
 </style>

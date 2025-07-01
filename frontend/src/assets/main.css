@@ -12,12 +12,11 @@ a,
   padding: 3px;
 }
 
-/* Custom CSS to complement Tailwind for bold design elements */
 body {
   font-family: 'Inter', sans-serif;
-  background-color: #f0f4f8; /* Light blue-gray background */
+  background-color: #f0f4f8;
   line-height: 1.6;
-  color: #334155; /* Dark text for readability */
+  color: #334155;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -26,68 +25,4 @@ body {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #64748b;
-}
-
-/* Hero section background with a bold, angled gradient */
-.hero-background {
-  background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #1e40af 100%); /* Deep blue to slightly lighter blue */
-  clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%); /* Creates a diagonal cut at the bottom */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative; /* For absolute positioning of profile card */
-}
-/* Adjust clip-path for smaller screens if desired */
-@media (max-width: 768px) {
-  .hero-background {
-    clip-path: polygon(0 0, 100% 0, 100% 90%, 0% 100%);
-  }
-}
-
-/* Styling for the main content card, positioned over the hero boundary */
-.profile-intro-card {
-  background-color: #ffffff;
-  padding: 2.5rem; /* 40px */
-  border-radius: 1.5rem; /* More rounded corners */
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15); /* Stronger shadow for prominence */
-  position: relative; /* Allows z-index */
-  margin-top: -8rem; /* Pulls it up into the hero section */
-  z-index: 10;
-}
-
-/* Style for the skill badges */
-.skill-badge {
-  background-color: #e0e7ff; /* light indigo */
-  color: #3730a3; /* dark indigo text */
-  padding: 0.5rem 1rem;
-  border-radius: 9999px; /* pill shape */
-  font-size: 0.9rem;
-  font-weight: 600;
-  margin-right: 0.75rem;
-  margin-bottom: 0.75rem;
-  display: inline-block;
-  transition: transform 0.2s ease-in-out;
-}
-.skill-badge:hover {
-  transform: translateY(-2px) scale(1.05);
-}
-
-/* Bold button styling */
-.action-button {
-  background: linear-gradient(90deg, #2563eb 0%, #3b82f6 100%); /* Blue gradient */
-  color: white;
-  padding: 0.8rem 2rem;
-  border-radius: 0.75rem;
-  font-size: 1.125rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-  box-shadow: 0 8px 15px rgba(59, 130, 246, 0.4);
-  border: none;
-  text-decoration: none; /* For links acting as buttons */
-}
-.action-button:hover {
-  background: linear-gradient(90deg, #1d4ed8 0%, #2563eb 100%);
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 12px 20px rgba(59, 130, 246, 0.5);
 }
