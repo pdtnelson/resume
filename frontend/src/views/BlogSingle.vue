@@ -27,8 +27,8 @@ onBeforeMount(() => {
 </script>
 <template>
   <PageHeader v-if="post" :title="post.title" :desc="post.description" />
-  <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <article class="bg-white p-8 rounded-2xl shadow-lg max-w-prose mx-auto leading-relaxed">
+  <main class="container mx-auto mb-auto px-4 sm:px-6 lg:px-8 py-12">
+    <article class="bg-white p-8 rounded-2xl shadow-lg max-w-4xl mx-auto leading-relaxed">
       <div v-if="post" class="article-content" v-html="post.content"></div>
 
       <div class="text-center">

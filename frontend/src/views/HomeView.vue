@@ -10,8 +10,11 @@ const http: HttpClient = inject('http')!
 const route = useRoute()
 const default_uuid = import.meta.env.VITE_DEFAULT_PROFILE_UUID
 const profile = ref<Profile>()
-const skills = ref<string[]>()
 
+const getProfileTrackingId = () => {
+  const { utm_id } = route.query
+  return utm_id ? utm_id : default_uuid
+}
 
 const fetchData = async () => {
   try {
@@ -22,11 +25,6 @@ const fetchData = async () => {
   }
 }
 
-const getProfileTrackingId = () => {
-  const { utm_id } = route.query
-  return utm_id ? utm_id : default_uuid
-}
-
 onBeforeMount(() => {
   fetchData()
 })
@@ -34,11 +32,9 @@ onBeforeMount(() => {
 
 <template>
   <Hero />
-  <main class="container mx-auto px-4 sm:px-6 lg:px-8">
-    <!-- Profile Picture & Introduction Section -->
+  <main class="container mx-auto mb-auto px-4 sm:px-6 lg:px-8">
     <section class="profile-intro-card relative z-10 -mt-32 p-10 bg-white rounded-3xl">
       <div class="flex justify-center -mt-20 sm:-mt-24 mb-6">
-        <!-- Circular profile picture -->
         <img src="/profile.jpeg"
              alt="Peter Nelson's Professional Photo"
              class="w-36 h-36 sm:w-48 sm:h-48 rounded-full object-cover border-4 border-white shadow-lg ring-4 ring-indigo-300 ring-opacity-70">
@@ -55,11 +51,7 @@ onBeforeMount(() => {
         AWS, Azure, GCP, Docker, Microservices, and RESTful development.
       </p>
     </section>
-
-    <!-- Key Links Section (Cards) -->
     <section id="links" class="grid grid-cols-1 md:grid-cols-3 gap-8 py-12">
-
-      <!-- Resume Link Card -->
       <RouterLink :to="{ name: 'resume' }" class="block">
         <div class="bg-white rounded-xl shadow-lg p-7 flex flex-col items-center text-center h-full transform hover:scale-105 transition-transform duration-300 ease-in-out hover:shadow-2xl border-b-4 border-gray-800">
           <svg class="w-16 h-16 text-gray-800 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -70,8 +62,6 @@ onBeforeMount(() => {
           <span class="text-blue-600 font-semibold hover:text-blue-800">View Resume &rarr;</span>
         </div>
       </RouterLink>
-
-      <!-- GitHub Profile Card -->
       <a href="https://github.com/pdtnelson" target="_blank" class="block">
         <div class="bg-white rounded-xl shadow-lg p-7 flex flex-col items-center text-center h-full transform hover:scale-105 transition-transform duration-300 ease-in-out hover:shadow-2xl border-b-4 border-gray-800">
           <svg class="w-16 h-16 text-gray-800 mb-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -82,8 +72,6 @@ onBeforeMount(() => {
           <span class="text-blue-600 font-semibold hover:text-blue-800">Visit GitHub &rarr;</span>
         </div>
       </a>
-
-      <!-- Blog Link Card -->
       <RouterLink :to="{ name: 'blog' }" target="_blank" class="block">
         <div class="bg-white rounded-xl shadow-lg p-7 flex flex-col items-center text-center h-full transform hover:scale-105 transition-transform duration-300 ease-in-out hover:shadow-2xl border-b-4 border-gray-800">
           <svg class="w-16 h-16 text-gray-800 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -95,8 +83,6 @@ onBeforeMount(() => {
         </div>
       </RouterLink>
     </section>
-
-    <!-- Key Skills/Expertise Section -->
     <section class="bg-white rounded-2xl shadow-lg p-8 sm:p-10 md:p-12 mb-12">
       <SkillsDisplay title="My Expertise" />
     </section>
@@ -105,6 +91,6 @@ onBeforeMount(() => {
 
 <style lang="scss" scoped>
 .profile-intro-card {
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15); /* Stronger shadow for prominence */
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
 }
 </style>
