@@ -1,5 +1,5 @@
 from enum import StrEnum
-from typing import Any
+from typing import Any, Annotated
 from datetime import datetime
 from bson import ObjectId
 from pydantic import BaseModel, Field, EmailStr
@@ -157,16 +157,18 @@ class User(BaseModel):
 
 
 class BlogPost(BaseModel):
-    id: ObjectId
+    id: str | None = None
     title: str
+    description: str
     published_date: datetime
     content: str
 
     @staticmethod
-    def from_dict(_id: ObjectId, data: dict):
+    def from_dict(id: str | ObjectId, data: dict):
         return BlogPost(
-            id= _id,
+            id=str(id) if id else None,
             title=data["title"],
+            description=data["description"],
             published_date=data["published_date"],
             content=data["content"]
         )

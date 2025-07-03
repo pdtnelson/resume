@@ -72,7 +72,7 @@ onBeforeMount(() => {
       </RouterLink>
 
       <!-- GitHub Profile Card -->
-      <a href="https://github.com/your-github-username" target="_blank" class="block">
+      <a href="https://github.com/pdtnelson" target="_blank" class="block">
         <div class="bg-white rounded-xl shadow-lg p-7 flex flex-col items-center text-center h-full transform hover:scale-105 transition-transform duration-300 ease-in-out hover:shadow-2xl border-b-4 border-gray-800">
           <svg class="w-16 h-16 text-gray-800 mb-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.499.09.679-.217.679-.481 0-.237-.008-.865-.013-1.7c-2.782.602-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.614.069-.601.069-.601 1.004.07 1.531 1.032 1.531 1.032.892 1.529 2.341 1.085 2.91.829.091-.645.356-1.085.654-1.334-2.22-.253-4.555-1.113-4.555-4.93 0-1.09.39-1.986 1.029-2.677-.103-.253-.446-1.268.099-2.648 0 0 .84-.27 2.75 1.021A9.582 9.582 0 0112 6.844c.85.004 1.701.114 2.503.333 1.909-1.291 2.747-1.021 2.747-1.021.546 1.38.202 2.395.099 2.648.64.691 1.028 1.587 1.028 2.677 0 3.827-2.339 4.673-4.566 4.92.359.307.678.915.678 1.846 0 1.335-.012 2.41-.012 2.727 0 .267.179.577.688.48C19.137 20.19 22 16.435 22 12.017 22 6.484 17.522 2 12 2z" clip-rule="evenodd" />

@@ -64,3 +64,11 @@ export interface UserJWTPayload extends JwtPayload {
   last_name: string
   roles: string[]
 }
+
+export type BlogPost = {
+  id: string,
+  title: string,
+  description: string,
+  published_date: DateTime,
+  content: string
+}

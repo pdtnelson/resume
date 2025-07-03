@@ -1,7 +1,9 @@
 import logging
+from datetime import datetime
 
 from bson import ObjectId
 from fastapi import APIRouter, HTTPException, Depends
+from pydantic import BaseModel, Field
 from starlette import status
 from starlette.responses import Response
 
@@ -10,6 +12,13 @@ from modules.auth import JWTBearer
 from modules.domain_models import PaginatedResponse, BlogPost, UserRole
 
 router = APIRouter()
+
+
+class CreateBlogPostRequest(BaseModel):
+    title: str
+    description: str
+    published_date: datetime = Field(default_factory=datetime.now)
+    content: str
 
 
 @router.get("/posts")
@@ -26,9 +35,9 @@ def get_all_posts(limit: int = 10, offset: int = 0) -> PaginatedResponse[BlogPos
 
 
 @router.get("/posts/{_id}")
-def get_blog_post(_id: str) -> BlogPost | Response:
+def get_blog_post(_id: str):
     try:
-        doc = db["blog_posts"].find({"_id": {"$eq": _id}})
+        doc = db["blog_posts"].find_one({"_id": {"$eq": ObjectId(_id)}})
         if not doc:
             return Response("Blog post not found", status_code=404)
         return BlogPost.from_dict(doc["_id"], doc)
@@ -40,9 +49,9 @@ def get_blog_post(_id: str) -> BlogPost | Response:
 @router.post("/posts", dependencies=[
     Depends(JWTBearer(required_roles=[UserRole.SITE_ADMIN]))
 ])
-def create_post(blog_post: BlogPost) -> BlogPost:
+def create_post(blog_post: CreateBlogPostRequest) -> BlogPost:
     try:
-        result = db["blog_posts"].insert_one(blog_post.model_dump(exclude="id"))
+        result = db["blog_posts"].insert_one(blog_post.model_dump())
         return BlogPost.from_dict(result.inserted_id, blog_post.model_dump())
     except Exception:
         logging.exception(f"Error creating blog post:")
@@ -52,16 +61,19 @@ def create_post(blog_post: BlogPost) -> BlogPost:
 @router.put("/posts", dependencies=[
     Depends(JWTBearer(required_roles=[UserRole.SITE_ADMIN]))
 ])
-def update_post(blog_post: BlogPost) -> BlogPost | Response:
+def update_post(blog_post: BlogPost):
     try:
-        doc = db["blog_posts"].find_one({"_id": {"$eq": blog_post.id}})
+        doc = db["blog_posts"].find_one({"_id": {"$eq": ObjectId(blog_post.id)}})
         if not doc:
             return Response("Resume not found for update", status_code=404)
-        db["blog_posts"].update_one({"_id", {"$set": blog_post.model_dump(exclude="id")}})
+        db["blog_posts"].replace_one(
+            {"_id", ObjectId(blog_post.id)}, blog_post.model_dump(exclude={"id"})
+        )
         updated = db["blog_posts"].find_one({"_id": {"$eq": blog_post.id}})
         return BlogPost.from_dict(updated["_id"], updated)
     except Exception:
-        logging.exception(f"Error updating post")
+        logging.exception(f"Error updating postz")
+        logging.exception(f"Shit {blog_post.model_dump(exclude={"id"})}")
         raise HTTPException(status_code=500, detail="Error updating post")
 
 
