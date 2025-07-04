@@ -12,6 +12,8 @@ import { jwtDecode } from 'jwt-decode'
 import type { UserJWTPayload } from '@/domain/types.ts'
 import SignIn from '@/views/SignIn.vue'
 import BlogSingle from '@/views/BlogSingle.vue'
+import AdminBlog from "@/views/admin/AdminBlog.vue";
+import CreateBlog from "@/views/admin/CreateBlog.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -82,17 +84,47 @@ const router = createRouter({
         {
           path: 'profile',
           name: 'admin-profile',
-          component: AdminProfile
+          component: AdminProfile,
+          meta: {
+            title: 'Profile Management',
+            requiresAuth: true
+          }
         },
         {
           path: 'resume',
           name: 'admin-resume',
-          component: AdminResume
+          component: AdminResume,
+          meta: {
+            title: 'Resume Management',
+            requiresAuth: true
+          }
         },
         {
           path: 'resume/create',
           name: 'resume-create',
-          component: CreateResume
+          component: CreateResume,
+          meta: {
+            title: 'Create Resume',
+            requiresAuth: true
+          }
+        },
+        {
+          path: 'blog',
+          name: 'blog-management',
+          component: AdminBlog,
+          meta: {
+            title: 'Blog Management',
+            requiresAuth: true
+          }
+        },
+        {
+          path: 'blog/create',
+          name: 'blog-create',
+          component: CreateBlog,
+          meta: {
+            title: 'Create Blog Post',
+            requiresAuth: true
+          }
         }
       ]
     }

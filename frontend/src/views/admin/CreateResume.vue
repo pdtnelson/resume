@@ -1,14 +1,6 @@
 <script setup lang="ts">
-
-import {
-  createVNode,
-  defineAsyncComponent, inject,
-  onMounted,
-  ref,
-  render,
-  useTemplateRef
-} from 'vue'
-import type { Certification, CreateResumeRequest, Education, Job, Resume } from '@/domain/types.ts'
+import { inject, ref } from 'vue'
+import type { Certification, CreateResumeRequest, Education, Job } from '@/domain/types.ts'
 import JobInput from '@/components/JobInput.vue'
 import { PlusIcon } from '@heroicons/vue/20/solid'
 import JobDisplay from '@/components/JobDisplay.vue'

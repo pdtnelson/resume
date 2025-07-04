@@ -6,7 +6,8 @@ import Card from '@/components/Card.vue'
 const navigation = [
   { name: 'Dashboard', href: 'admin-dashboard' },
   { name: 'Profile', href: 'admin-profile' },
-  { name: 'Resume', href: 'admin-resume' }
+  { name: 'Resume', href: 'admin-resume' },
+  { name: 'Blog', href: 'blog-management'}
 ]
 const userNavigation = [
   { name: 'Your Profile', href: '#' },

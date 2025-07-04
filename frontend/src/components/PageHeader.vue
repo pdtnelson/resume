@@ -10,7 +10,7 @@ const { title, desc } = defineProps<{ title: string; desc: string }>()
       >
         {{ title }}
       </h1>
-      <p class="text-lg sm:text-xl font-light opacity-90 max-w-2xl mx-auto">
+      <p class="text-lg sm:text-xl font-light opacity-90 max-w-3xl mx-auto">
         {{ desc }}
       </p>
     </div>

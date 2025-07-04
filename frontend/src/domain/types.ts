@@ -72,3 +72,5 @@ export type BlogPost = {
   published_date: DateTime,
   content: string
 }
+
+export type CreateBlogPostRequest = Omit<BlogPost, 'id' | 'published_date'>

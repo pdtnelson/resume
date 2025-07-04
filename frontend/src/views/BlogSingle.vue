@@ -41,7 +41,7 @@ onBeforeMount(() => {
 </template>
 
 <style lang="scss" scoped>
-.article-content {
+:deep.article-content {
   h3 {
     font-size: 1.75rem; /* text-2xl */
     font-weight: 700; /* font-bold */
@@ -65,10 +65,6 @@ onBeforeMount(() => {
     li {
       margin-bottom: 0.5rem;
     }
-  }
-
-  .back-button {
-
   }
 }
 </style>
