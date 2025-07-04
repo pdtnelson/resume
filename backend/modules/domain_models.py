@@ -157,16 +157,16 @@ class User(BaseModel):
 
 
 class BlogPost(BaseModel):
-    id: str | None = None
+    id: Annotated[ObjectId, ObjectIdPydanticAnnotation]
     title: str
     description: str
     published_date: datetime
     content: str
 
     @staticmethod
-    def from_dict(id: str | ObjectId, data: dict):
+    def from_dict(id: ObjectId, data: dict):
         return BlogPost(
-            id=str(id) if id else None,
+            id=id,
             title=data["title"],
             description=data["description"],
             published_date=data["published_date"],

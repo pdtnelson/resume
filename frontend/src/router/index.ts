@@ -1,17 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import type { RouteLocationNormalizedGeneric } from "vue-router"
 import HomeView from '../views/HomeView.vue'
-import Resume from "@/views/Resume.vue";
-import Contact from "@/views/Contact.vue";
+import Resume from '@/views/Resume.vue'
+import Contact from '@/views/Contact.vue'
 import AdminDashboard from '@/views/admin/AdminDashboard.vue'
 import AdminProfile from '@/views/admin/AdminProfile.vue'
 import AdminResume from '@/views/admin/AdminResume.vue'
 import CreateResume from '@/views/admin/CreateResume.vue'
 import Blog from '@/views/Blog.vue'
-import { jwtDecode } from "jwt-decode";
+import { jwtDecode } from 'jwt-decode'
 import type { UserJWTPayload } from '@/domain/types.ts'
-import SignIn from "@/views/SignIn.vue";
-import BlogSingle from "@/views/BlogSingle.vue";
+import SignIn from '@/views/SignIn.vue'
+import BlogSingle from '@/views/BlogSingle.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
