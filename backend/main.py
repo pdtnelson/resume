@@ -3,13 +3,14 @@ from fastapi import FastAPI
 from dotenv import load_dotenv
 load_dotenv()
 
-from modules import profile, resume, auth
+from modules import profile, resume, auth, blog
 
 app = FastAPI()
 
 app.include_router(profile.router)
 app.include_router(resume.router)
 app.include_router(auth.router)
+app.include_router(blog.router)
 
 
 @app.get("/")

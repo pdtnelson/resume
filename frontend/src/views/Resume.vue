@@ -1,13 +1,9 @@
 <script setup lang="ts">
-
 import type HttpClient from '@/http/http-client.ts'
-import { inject, onMounted, ref } from 'vue'
-import type { PagedResponse, Resume } from '@/domain/types.ts'
-import Card from '@/components/Card.vue'
-import JobDisplay from '@/components/JobDisplay.vue'
-import EducationDisplay from '@/components/EducationDisplay.vue'
-import CertificationDisplay from '@/components/CertificationDisplay.vue'
+import { inject, onBeforeMount, ref } from 'vue'
+import type { Resume } from '@/domain/types.ts'
 import Timeline from '@/components/Timeline.vue'
+import PageHeader from '@/components/PageHeader.vue'
 
 const http = inject<HttpClient>('http')!
 const resume = ref<Resume>()
@@ -21,23 +17,14 @@ const fetchData = async () => {
   }
 }
 
-onMounted(() => {
+onBeforeMount(() => {
   fetchData()
 })
 </script>
 
 <template>
-  <header class="hero-background text-white px-4 sm:px-6 lg:px-8 min-h-11 sm:min-h-12">
-    <div class="container mx-auto text-center py-8">
-      <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-2 drop-shadow-md">
-        Professional Experience
-      </h1>
-      <p class="text-lg sm:text-xl font-light opacity-90 max-w-2xl mx-auto">
-        A detailed look through my previous positions
-      </p>
-    </div>
-  </header>
-  <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  <PageHeader title="Professional Experience" desc="A detailed look through my previous positions" />
+  <main class="container mx-auto mb-auto px-4 sm:px-6 lg:px-8 py-12">
     <Timeline v-if="resume" :jobs="resume.jobs" />
   </main>
 </template>

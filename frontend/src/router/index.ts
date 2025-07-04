@@ -11,6 +11,7 @@ import Blog from '@/views/Blog.vue'
 import { jwtDecode } from "jwt-decode";
 import type { UserJWTPayload } from '@/domain/types.ts'
 import SignIn from "@/views/SignIn.vue";
+import BlogSingle from "@/views/BlogSingle.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -52,6 +53,15 @@ const router = createRouter({
       }
     },
     {
+      path: '/blog/:id',
+      name: 'blog-single',
+      component: BlogSingle,
+      meta: {
+        title: 'Blog',
+        requiresAuth: false
+      }
+    },
+    {
       path: '/signin',
       name: 'signin',
       component: SignIn,
@@ -85,15 +95,7 @@ const router = createRouter({
           component: CreateResume
         }
       ]
-    },
-    {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue'),
-    },
+    }
   ],
 })
 
