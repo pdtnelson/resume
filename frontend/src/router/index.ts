@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import type { RouteLocationNormalizedGeneric } from "vue-router"
-import HomeView from '../views/HomeView.vue'
+import type { RouteLocationNormalizedGeneric } from 'vue-router'
+import HomeView from '@/views/HomeView.vue'
 import Resume from '@/views/Resume.vue'
 import Contact from '@/views/Contact.vue'
 import AdminDashboard from '@/views/admin/AdminDashboard.vue'
