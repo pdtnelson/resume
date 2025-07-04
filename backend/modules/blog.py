@@ -63,11 +63,11 @@ def create_post(blog_post: CreateBlogPostRequest) -> BlogPost:
 ])
 def update_post(blog_post: BlogPost):
     try:
-        doc = db["blog_posts"].find_one({"_id": {"$eq": ObjectId(blog_post.id)}})
+        doc = db["blog_posts"].find_one({"_id": {"$eq": blog_post.id}})
         if not doc:
             return Response("Resume not found for update", status_code=404)
         db["blog_posts"].replace_one(
-            {"_id", ObjectId(blog_post.id)}, blog_post.model_dump(exclude={"id"})
+            {"_id", blog_post.id}, blog_post.model_dump(exclude={"id"})
         )
         updated = db["blog_posts"].find_one({"_id": {"$eq": blog_post.id}})
         return BlogPost.from_dict(updated["_id"], updated)
