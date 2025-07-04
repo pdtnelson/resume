@@ -12,8 +12,8 @@ import { jwtDecode } from 'jwt-decode'
 import type { UserJWTPayload } from '@/domain/types.ts'
 import SignIn from '@/views/SignIn.vue'
 import BlogSingle from '@/views/BlogSingle.vue'
-import AdminBlog from "@/views/admin/AdminBlog.vue";
-import CreateBlog from "@/views/admin/CreateBlog.vue";
+import AdminBlog from '@/views/admin/AdminBlog.vue'
+import CreateBlog from '@/views/admin/CreateBlog.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
