@@ -30,8 +30,7 @@ export default class HttpClient {
         const dateFields = [
           'created_at',
           'updated_at',
-          'start_date',
-          'end_date'
+          'published_date'
         ]
 
         const maybeCoerceDatestringToLuxon = (
