@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, inject, onBeforeMount } from 'vue'
+import { ref, inject } from 'vue'
 import router from '@/router'
 import type HttpClient from '@/http/http-client'
 import { email, required } from '@vuelidate/validators'

@@ -19,13 +19,13 @@ const props = defineProps<{
 
 const options = toRef(props, 'options')
 const optionLabel = toRef(props, 'optionLabel')
-const model = defineModel({ type: Array<String>, required: true })
+const model = defineModel({ type: Array<string>, required: true })
 
-let selected = ref<string>('')
+const selected = ref<string>('')
 const selectedOptions = toRef<string[]>(props.selectedOptions || [])
-let query = ref('')
+const query = ref('')
 
-let filteredOptions = computed(() =>
+const filteredOptions = computed(() =>
   query.value === ''
     ? options.value
     : options.value.filter((option: string) =>

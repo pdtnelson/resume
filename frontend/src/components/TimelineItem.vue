@@ -4,7 +4,7 @@ import { ref } from "vue";
 import type { DateTime } from "luxon";
 
 const { job } = defineProps<{job: Job}>()
-const show = ref<Boolean>(false)
+const show = ref<boolean>(false)
 
 const formatDateRange = (startDate: DateTime, endDate: DateTime | null) => {
   const endDateString = endDate ? `${endDate.monthLong} ${endDate.year}` : 'Present'

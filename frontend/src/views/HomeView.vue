@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { inject, onBeforeMount, ref } from 'vue'
 import type HttpClient from '@/http/http-client'
-import type { PagedResponse, Profile, Resume } from '@/domain/types.ts'
+import type { PagedResponse, Profile } from '@/domain/types.ts'
 import { useRoute } from 'vue-router'
 import Hero from "@/components/Hero.vue";
 import SkillsDisplay from "@/components/SkillsDisplay.vue";

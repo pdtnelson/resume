@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import useVuelidate from '@vuelidate/core'
-import Editor from '@tinymce/tinymce-vue'
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
 

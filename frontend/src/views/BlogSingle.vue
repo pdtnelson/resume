@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
 import type { BlogPost } from '@/domain/types.ts'
-import { inject, onBeforeMount, onMounted, ref } from "vue";
+import { inject, onBeforeMount, ref } from "vue";
 import type HttpClient from '@/http/http-client.ts'
 import PageHeader from '@/components/PageHeader.vue'
 

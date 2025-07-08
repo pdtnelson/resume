@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import PageHeader from '@/components/PageHeader.vue'
-import { inject, onBeforeMount, onMounted, ref } from 'vue'
+import { inject, onBeforeMount, ref } from 'vue'
 import HttpClient from '@/http/http-client.ts'
 import type { BlogPost, PagedResponse } from '@/domain/types.ts'
 import type { DateTime } from 'luxon'
