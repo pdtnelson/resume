@@ -69,7 +69,7 @@ export type BlogPost = {
   id: string,
   title: string,
   description: string,
-  published_date: DateTime,
+  published_date: DateTime | null,
   content: string
 }
 

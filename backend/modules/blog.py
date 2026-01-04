@@ -67,13 +67,12 @@ def update_post(blog_post: BlogPost):
         if not doc:
             return Response("Resume not found for update", status_code=404)
         db["blog_posts"].replace_one(
-            {"_id", blog_post.id}, blog_post.model_dump(exclude={"id"})
+            {"_id": blog_post.id}, blog_post.model_dump(exclude={"id"})
         )
         updated = db["blog_posts"].find_one({"_id": {"$eq": blog_post.id}})
         return BlogPost.from_dict(updated["_id"], updated)
-    except Exception:
-        logging.exception(f"Error updating postz")
-        logging.exception(f"Shit {blog_post.model_dump(exclude={"id"})}")
+    except Exception as ex:
+        logging.exception(f"Error updating post {blog_post.id}:")
         raise HTTPException(status_code=500, detail="Error updating post")
 
 

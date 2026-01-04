@@ -19,10 +19,18 @@ const rules = {
 }
 const v$ = useVuelidate(rules, form)
 const processing = ref(false)
+const loginError = ref('')
+
+// Clear error when user starts typing
+function clearError() {
+  loginError.value = ''
+}
+
 async function login() {
   try {
     // PDT: Extra safety check: Don't submit invalid forms.
     processing.value = true
+    loginError.value = '' // Clear any previous errors
     if (!(await v$.value.$validate())) return
     const r = await http.client.post<{ token: string }>('/login', JSON.stringify(form.value))
     const token = r.data.token
@@ -31,6 +39,7 @@ async function login() {
     processing.value = false
     await(router.push({ name: 'admin-dashboard' }))
   } catch (e) {
+    loginError.value = 'The provided credentials are invalid'
     http.handleError(e, true, 'Login failed. Please check your credentials and try again.')
     processing.value = false
   } finally {
@@ -58,6 +67,7 @@ async function login() {
                 aria-invalid="true"
                 aria-describedby="email-error"
                 @blur="v$.email.$touch"
+                @input="clearError"
                 v-model="form.email"
               />
               <div
@@ -85,6 +95,7 @@ async function login() {
                 aria-invalid="true"
                 aria-describedby="email-error"
                 @blur="v$.password.$touch"
+                @input="clearError"
                 v-model="form.password"
               />
               <div
@@ -99,6 +110,11 @@ async function login() {
 
           <div class="mt-2">
             <button @click="login" type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in</button>
+          </div>
+
+          <!-- Login Error Message -->
+          <div v-if="loginError" class="mt-4">
+            <p class="text-sm text-red-600 text-center">{{ loginError }}</p>
           </div>
         </form>
       </div>

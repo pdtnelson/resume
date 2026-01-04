@@ -14,6 +14,7 @@ import SignIn from '@/views/SignIn.vue'
 import BlogSingle from '@/views/BlogSingle.vue'
 import AdminBlog from '@/views/admin/AdminBlog.vue'
 import CreateBlog from '@/views/admin/CreateBlog.vue'
+import EditBlog from '@/views/admin/EditBlog.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -123,6 +124,15 @@ const router = createRouter({
           component: CreateBlog,
           meta: {
             title: 'Create Blog Post',
+            requiresAuth: true
+          }
+        },
+        {
+          path: 'blog/edit/:id',
+          name: 'blog-edit',
+          component: EditBlog,
+          meta: {
+            title: 'Edit Blog Post',
             requiresAuth: true
           }
         }
