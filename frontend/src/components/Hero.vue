@@ -9,7 +9,7 @@
         Peter D. Nelson
       </h1>
       <p class="text-xl sm:text-2xl md:text-3xl font-light opacity-90 max-w-4xl mx-auto drop-shadow-md">
-        Software Engineer, Security Enthusiast, Skier
+        Software Engineer. Security Enthusiast. Skier.
       </p>
     </div>
   </div>

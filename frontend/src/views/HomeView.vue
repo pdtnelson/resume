@@ -35,20 +35,23 @@ onBeforeMount(() => {
   <main class="container mx-auto mb-auto px-4 sm:px-6 lg:px-8">
     <section class="profile-intro-card relative z-10 -mt-32 p-10 bg-white rounded-3xl">
       <div class="flex justify-center -mt-20 sm:-mt-24 mb-6">
-        <img src="/profile.jpeg"
+        <img src="/profile.jpg"
              alt="Peter Nelson's Professional Photo"
              class="w-36 h-36 sm:w-48 sm:h-48 rounded-full object-cover border-4 border-white shadow-lg ring-4 ring-indigo-300 ring-opacity-70">
       </div>
       <p class="text-lg sm:text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed mb-5">
         Over the past 16 years, I've gained experience in a wide variety of technical environments
         ranging from small startups just making their mark to large corporations that are household names.
-        My approach has always been informed by my start in educational technology and my decisions are
-        always made with careful analysis of the problem at hand. This allows me to go beyond buzzwords
-        and build systems and solutions that address the exact needs of any organization.
+        I have spent my career working closely with security teams and have always been passionate about the field. Recently obtained my 
+        Certified Penetration Testing Specialist (CPTS) certification as I broaden my horizons and pursue new security-focused roles.
       </p>
-      <p class="text-lg sm:text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
+      <p class="text-lg sm:text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed mb-5">
         Skilled in Python, TypeScript, PHP, and Java. Experienced with
         AWS, Azure, GCP, Docker, Microservices, and RESTful development.
+      </p>
+      <p class="text-lg sm:text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
+        CPTS certified and actively pursuing further security certifications to deepen my expertise in cybersecurity.
+        Core competencies include penetration testing, vulnerability assessment, and secure software development.
       </p>
     </section>
     <section id="links" class="grid grid-cols-1 md:grid-cols-3 gap-8 py-12">
